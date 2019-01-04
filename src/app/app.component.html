@@ -1,0 +1,122 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!-- <div style="text-align:center">
+  <h3>Welcome to Todo Application!</h3>
+  <div>
+    <span>
+      <input type="text" [(ngModel)]="todoSearch" placeholder="Search" />
+      <button (click)="validate(todoSearch) ? addTodo(todoSearch) : error()">
+        Add
+      </button>
+    </span>
+    <div *ngIf="todoList.length > 0">
+      <ul>
+        <li
+          class="fadeIn"
+          *ngFor="
+            let todo of (todoList | searchPipe: todoSearch);
+            let i = index
+          "
+        >
+          <input
+            type="checkbox"
+            [checked]="todo.status == 'Done'"
+            (click)="
+              todo.status === 'Done'
+                ? (todo.status = 'NotYet')
+                : (todo.status = 'Done');
+              todoList[i] = todo
+            "
+          />
+          <span [ngClass]="todo.status === 'Done' ? 'strick' : 'unstrick'">
+            {{ todo.name }} <span (click)="removeTodo(i)">X</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="(todoList | searchPipe: todoSearch).length == 0">
+      No <b>*{{ todoSearch }}</b> is available in the Todo list.
+    </div>
+    <!-- <input type="text" #newTodo placeholder="Search" />
+    <button (click)="addTodo(newTodo.value)">Add</button> -->
+<!-- </div>
+</div> -->
+
+<div class="container">
+  <h3 class="text-center">Todo Application</h3>
+  <hr />
+</div>
+
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-sm-offset-3 col-md-offset-4">
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Find / Create your own Todo list"
+          [(ngModel)]="todoSearch"
+        />
+        <div class="input-group-append ">
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="validate()&&todoSearch.length>0 ? addTodo(todoSearch) : error()"
+            [disabled]="!validate()">
+            Add
+          </button>
+        </div>
+      </div>
+      <p [ngClass]='validate() !== true ? "errorshow" : "errorHide"'>
+        *Input field only allow Numbers and characters<br/>
+        *Input Must between 0-99 characters
+      </p>
+      <div class="card">
+        <!-- Default panel contents -->
+        <div class="card-header">Todo List</div>
+        <!-- List group -->
+        <ul class="list-group ">
+          <li
+            class="custom-control custom-checkbox fadeIn list-group-item list-group-item-action "
+            *ngFor="
+              let todo of (todoList | searchPipe: todoSearch);
+              let i = index
+            "
+          >
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              id="defaultUnchecked{{ i }}"
+              [checked]="todo.status == 'Done'"
+              (click)="
+                todo.status === 'Done'
+                  ? (todo.status = 'NotYet')
+                  : (todo.status = 'Done');
+                  updatetodo(todo);
+              "
+            />
+            <label
+              class="custom-control-label"
+              for="defaultUnchecked{{ i }}"
+              [ngClass]="todo.status === 'Done' ? 'strick' : 'unstrick'"
+              >{{ todo.name }}</label
+            >
+            <button
+              type="button"
+              class="close"
+              aria-label="Close"
+              (click)="removeTodo(todo)"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </li>
+          <li
+            class="custom-control custom-checkbox fadeIn list-group-item"
+            *ngIf="(todoList | searchPipe: todoSearch).length == 0"
+          >
+            <b style="color:red"> Todo List Empty </b>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
