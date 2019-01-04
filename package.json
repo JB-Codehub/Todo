@@ -1,6 +1,6 @@
 {
   "name": "todo-app-client",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "start": "ng serve",
     "start:Apiserver": "set port=8080 && node server/server.js",
